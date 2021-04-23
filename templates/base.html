@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<link rel="icon" href="{% static 'img/258416.png' %}" />
+
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+		<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+		<script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+		<script src='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.js'></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"></script>
+
+	<!--Шрифты-->
+		<link rel="preconnect" href="https://fonts.gstatic.com">
+		<link href="https://fonts.googleapis.com/css2?family=Arsenal&family=Train+One&display=swap" rel="stylesheet">
+		<style>
+		html, body {
+			height: 100%;
+			overflow-x:hidden;
+		}
+		body {
+			display: flex;
+			flex-direction: column;
+		}
+		.content {
+			flex: 1 0 auto;
+		}
+		.footer {
+			flex-shrink: 0;
+		}
+		/*Логотип===============================================*/
+
+		*{
+			box-sizing: inherit;
+			transition-property: all;
+			transition-duration: .3s;
+			transition-timing-function: ease;
+		}
+
+		a {
+			text-decoration: none;
+		}
+		.navbar-brad {
+			font-size: x-large;
+			font-family: 'Train One', cursive;
+			color: #B22222;
+			cursor: pointer;
+			display: block;
+			font-weight: 400;
+			line-height: 45px;
+			margin: 10px;
+			max-width: 150px;
+			width: 100%;
+			height: 45px;
+			text-align: center;
+			position: relative;
+			text-decoration: none;
+		}
+
+		.navbar-brad:hover:after,
+		.navbar-brad:hover:before {
+			-webkit-backface-visibility: hidden;
+			backface-visibility: hidden;
+			border-color: #B22222;
+			transition: width 310ms ease-in-out;
+			width: 70%;
+			text-decoration: none;
+		}
+
+		.navbar-brad:after,
+		.navbar-brad:before {
+			-webkit-backface-visibility: hidden;
+			backface-visibility: hidden;
+			border: 1px solid  #B22222;
+			bottom: 0px;
+			left: 0px;
+			content: " ";
+			display: block;
+			margin: 0 auto;
+			position: relative;
+			transition: all 210ms ease-in-out;
+			width: 0;
+		}
+		/*Меню======================================*/
+		*{
+			box-sizing: inherit;
+			transition-property: all;
+			transition-duration: .3s;
+			transition-timing-function: ease;
+		}
+		.nav-link
+		{
+			cursor: pointer;
+			display: block;
+			font-size: 16px;
+			font-weight: 400;
+			line-height: 45px;
+			margin: 10px;
+			max-width: 150px;
+			width: 100%;
+			height: 45px;
+			text-align: center;
+			position: relative;
+			text-transform: uppercase;
+		}
+		.nav-link.active {
+			content: ' ';
+			display: block;
+			width: 0;
+			height: 2px;
+			background: #B22222;
+			transition: width 310ms ease-in-out;
+		}
+		.nav-link:after {
+			content: ' ';
+			display: block;
+			width: 0;
+			height: 2px;
+			background: #B22222;
+			transition: width 310ms ease-in-out;
+		}
+
+		.nav-link:hover:after {
+			width:100%;
+		}
+		/*Карточки*/
+		div.catCard {
+			border: solid 1px #bababa;
+			border-radius: 10px;
+			background: #FFFFFF;
+			height: 400px;
+			display: block;
+			position: relative;
+			overflow: hidden;
+			padding: 10px;
+		}
+		div.lowerCatCard {
+			position: absolute;
+			background: #FFFFFF;
+			height: 200px;
+			padding: 20px;
+			-webkit-transition: all 0.6s ease;
+			-moz-transition:    all 0.6s ease;
+			-o-transition:      all 0.6s ease;
+			transition:         all 0.6s ease;
+		}
+		div.lowerCatCard:hover {
+			opacity: 0.95;
+			bottom: 0;
+			height: 390px;
+		}
+		div.catCard  div.lowerCatCard {
+			left: 0;
+			bottom: -3%;
+		}
+		div.catCard:hover div.lowerCatCard {
+			bottom: 0;
+		}
+		li.catCardList {
+			display: inline-block;
+			margin-right: 19px;
+			margin-top: 25px;
+		}
+		li.catCardList-last {
+			margin-right: 0;
+			width:225px;
+			display: inline-block;
+		}
+		ul.catCardList {
+			margin: 0;
+		}
+		#catCardButton {
+			position: absolute;
+			width: 190px;
+			bottom: 5px;
+			-webkit-transition: all 0.6s ease;
+			-moz-transition:    all 0.6s ease;
+			-o-transition:      all 0.6s ease;
+		}
+		div.lowerCatCard:hover #catCardButton {
+			bottom: 5px;
+		}
+		.startingPrice span {
+			font-size: 16px;
+			color: #c90c12;
+			font-weight: 300;
+		}
+		div.startingPrice {
+			margin-bottom: 5px;
+			color: #000;
+			font-weight: 300;
+		}
+		.catCard img {
+			border: 1px solid #dddddd;
+			width: 219px;
+			height: 198px;
+		}
+		.catCard img:hover {
+			border: 1px solid #bababa;
+		}
+
+		/* Button
+		.......................................................................*/
+		.button {
+			cursor: pointer;
+			font-size: 14px !important;
+			color: #fff !important;
+			padding: 7px 10px !important;
+			text-decoration: none !important;
+			text-transform: uppercase !important;
+			letter-spacing: 0 !important;
+			background: #FFFFFF;
+			border: none;
+			border-bottom: solid 1px #277cfd;
+			border-radius: 10px;
+			text-align: center;
+			margin-top: 10px;
+		}
+		.button:hover {
+			background-color: #277cfd;
+			border: none;
+			border-bottom: solid 1px #277cfd;
+			transform: scale(1.04);
+			-webkit-transform: scale(1.04);
+			-moz-transform: scale(1.04);
+			-o-transform: scale(1.04);
+			-ms-transform: scale(1.04);
+		}
+		.button:active {
+			background: transparent;
+		}
+		.button a {
+			color: #000;
+			padding: 7px 30px !important;
+			text-decoration: none;
+		}
+		.button a:hover {
+			color: #fff;
+		}
+		.button:hover {
+			color: #fff;
+		}
+		/*Кнопка меню*/
+		.menu {
+		background-color: transparent;
+		border: none;
+		cursor: pointer;
+		display: flex;
+		padding: 0;
+		}
+		.line {
+		fill: none;
+		stroke: black;
+		stroke-width: 6;
+		transition: stroke-dasharray 600ms cubic-bezier(0.4, 0, 0.2, 1),
+			stroke-dashoffset 600ms cubic-bezier(0.4, 0, 0.2, 1);
+		}
+		.line1 {
+		stroke-dasharray: 60 207;
+		stroke-width: 6;
+		}
+		.line2 {
+		stroke-dasharray: 60 60;
+		stroke-width: 6;
+		}
+		.line3 {
+		stroke-dasharray: 60 207;
+		stroke-width: 6;
+		}
+		.opened .line1 {
+		stroke-dasharray: 90 207;
+		stroke-dashoffset: -134;
+		stroke-width: 6;
+		}
+		.opened .line2 {
+		stroke-dasharray: 1 60;
+		stroke-dashoffset: -30;
+		stroke-width: 6;
+		}
+		.opened .line3 {
+		stroke-dasharray: 90 207;
+		stroke-dashoffset: -134;
+		stroke-width: 6;
+		}
+		/**/
+	.scale {
+		transition: 1s; /* Время эффекта */
+	}
+	.scale:hover {
+		z-index: 1;
+		transform: scale(1.5); /* Увеличиваем масштаб */
+	}
+
+
+	
+		</style>
+
+	<title>ART TOKENIZATION | OWNER's SIDE</title>
+
+
+	</head>
+
+	<body style="font-family: 'Arsenal', sans-serif;">
+		<div class="content">
+				<div class="preloader">
+				<div class="preloader__row">
+					<div class="preloader__item"></div>
+					<div class="preloader__item"></div>
+				</div>
+				</div>
+
+				<nav class="navbar navbar-expand-md navbar-light  shadow-sm" >
+							<div class="container-fluid" >
+								<!--Вместо картинки логотип
+								<a href="https://cbr.ru/press/event/?id=8177" target="_blank" rel="noopener noreferrer" class="navbar-brad"><img src="{% static 'img/caption.jpg' %}"></a>
+							-->
+							<a href="https://cbr.ru/press/event/?id=8177" target="_blank" rel="noopener noreferrer" class="navbar-brad" style="text-decoration:none;">artoken</a>
+
+							<button class="navbar-toggler" data-toggle="collapse" data-target="#navbarResponsive" style="border:none">
+								<div class="menu" onclick="this.classList.toggle('opened');this.setAttribute('aria-expanded', this.classList.contains('opened'))" aria-label="Main Menu">
+							<svg width="30" height="30" viewBox="0 0 100 100">
+								<path class="line line1" d="M 20,29.000046 H 80.000231 C 80.000231,29.000046 94.498839,28.817352 94.532987,66.711331 94.543142,77.980673 90.966081,81.670246 85.259173,81.668997 79.552261,81.667751 75.000211,74.999942 75.000211,74.999942 L 25.000021,25.000058" />
+								<path class="line line2" d="M 20,50 H 80" />
+								<path class="line line3" d="M 20,70.999954 H 80.000231 C 80.000231,70.999954 94.498839,71.182648 94.532987,33.288669 94.543142,22.019327 90.966081,18.329754 85.259173,18.331003 79.552261,18.332249 75.000211,25.000058 75.000211,25.000058 L 25.000021,74.999942" />
+							</svg>
+							</div>
+							</button>
+						<div class="collapse navbar-collapse" id="navbarResponsive">
+							<ul class="navbar-nav ml-auto">
+								<li class="nav-item active">
+									<a href="{% url 'landing' %}" class="nav-link" style='{% block color_land %}{% endblock %}'>Главная</a>
+								</li>
+								<li class="nav-item active">
+									<a href="{% url 'tkn' %}" class="nav-link" style='{% block color_token %}{% endblock %}'>Создать токен</a>
+								</li>
+								<li class="nav-item active">
+									<a href="{% url 'auction' %}" class="nav-link" style='{% block color_auction %}{% endblock %}'>Аукционы</a>
+								</li>
+								<li class="nav-item active">
+									<a href="{% url 'new_auction' %}" class="nav-link" style='{% block color_create %}{% endblock %}'>Начать аукцион</a>
+								</li>
+							</ul>
+						</div>
+					</nav>
+
+				<!--====================================================================-->
+				
+
+
+			{% block content %}
+			{% endblock %}
+		</div>
+		
+			<div class="footer">
+				<div class="col-sm-12 col-md-12" style="text-align:center; 	margin:auto;">
+					<hr style="border-color: #0e0e0; margin: 23px" />
+					<p style="color:#B22222; text-align: center; font-size: small; margin: 23px">Все права защищены &copy; 2021 <br> Команда 1</p>
+				</div>
+			</div>
+		
+	</body>
+</html>

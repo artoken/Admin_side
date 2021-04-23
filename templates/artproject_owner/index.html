@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block color_land %}
+{{ style }}
+{% endblock %}
+
+
+
+{% block content %}
+{% load static %}
+
+<section  style="font-family: 'Arsenal', sans-serif;" class="py-12" id="pages">
+		<div class="container">
+			<div class="row" >
+				<div class="col-sm-10 col-md-10 text-center">
+					<h1 style="margin-top: 0px; ">Активы в системе</h1>
+				</div>
+			</div>
+			<div class="row" >
+				<div class="col-sm-10 col-md-10 " style="text-align:left; color:#bababa">
+					<h4>Токенов всего: {{ tokens_in_system }}</h2>
+					</div>
+				</div>
+				
+				<div class="row">
+						{% for art in info_to_render %}
+						<div class="col-sm- col-md-3" style="margin-right: 15px; margin-left: 15px;">
+							<ul class="catCardList">
+								<li class="catCardList">
+									<div class="catCard"><a href="{{art.Link}}" target="_blank" rel="noopener noreferrer"><img src="{{art.Link}}" alt="Тут Токен ддолжен жить"></a>
+										<div class="lowerCatCard">
+											<h3><b>{{art.Name}}</b></h3>
+											<div class="author"><span>{{art.Author}}</span></div>
+											<div class="startingPrice">Оригинал <span>{{art.Orig}}</span></div>
+
+											<p>Есть такой  токен. Он представляет из себя NFT. Это новый вид искусства.</p>
+											<h4>Характеристики:</h4>
+											<ul>
+												<li>ID токена - <span>{{art.ID}}</span></li>
+												<li>Сущность <span>{{art.Entity}}</span></li>
+												<li>Тип лицензии {{art.License}}</li> <!--Так и не поняла, что мы решили по этому полю-->
+											</ul>
+											<div id="catCardButton" class="button"><a href="#">View Product</a></div>
+											
+										</div>
+										
+									</div>
+								</li>
+							</ul>
+						
+						</div>
+						{% endfor %}
+				</div>
+			</div>
+		</div>
+</section>
+
+{% endblock%}

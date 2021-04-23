@@ -1,0 +1,348 @@
+html, body {
+  height: 100%;
+}
+body {
+  font-family: 'Arsenal', sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+.content {
+  flex: 1 0 auto;
+}
+.footer {
+  flex-shrink: 0;
+}
+
+figcaption {
+  text-align: center; /* Выравниваем по центру */
+ }
+
+.preloader {
+/*фиксированное позиционирование*/
+position: fixed;
+/* координаты положения */
+left: 0;
+top: 0;
+right: 0;
+bottom: 0;
+/* фоновый цвет элемента */
+background: #e0e0e0;
+/* размещаем блок над всеми элементами на странице (это значение должно быть больше, чем у любого другого позиционированного элемента на странице) */
+z-index: 1001;
+}
+
+.preloader__row {
+position: relative;
+top: 50%;
+left: 50%;
+width: 70px;
+height: 70px;
+margin-top: -35px;
+margin-left: -35px;
+text-align: center;
+animation: preloader-rotate 4s infinite linear;
+}
+
+.preloader__item {
+position: absolute;
+display: inline-block;
+top: 0;
+background-color: #337ab7;
+border-radius: 100%;
+width: 35px;
+height: 35px;
+animation: preloader-bounce 4s infinite ease-in-out;
+}
+
+.preloader__item:last-child {
+top: auto;
+bottom: 0;
+animation-delay: -2s;
+}
+
+@keyframes preloader-rotate {
+100% {
+  transform: rotate(360deg);
+}
+}
+
+@keyframes preloader-bounce {
+
+0%,
+100% {
+  transform: scale(0);
+}
+
+50% {
+  transform: scale(1);
+}
+}
+
+.loaded_hiding .preloader {
+transition: 0.3s opacity;
+opacity: 0;
+}
+
+.loaded .preloader {
+display: none;
+}
+
+
+
+
+/*Логотип===============================================*/
+
+*{
+  box-sizing: inherit;
+  transition-property: all;
+  transition-duration: .3s;
+  transition-timing-function: ease;
+}
+
+a {
+  text-decoration: none;
+}
+.navbar-brad {
+  font-size: x-large;
+  font-family: 'Train One', cursive;
+  color: #B22222;
+  cursor: pointer;
+  display: block;
+  font-weight: 400;
+  line-height: 45px;
+  margin: 10px;
+  max-width: 150px;
+  width: 100%;
+  height: 45px;
+  text-align: center;
+  position: relative;
+  text-decoration: none;
+}
+
+.navbar-brad:hover:after,
+.navbar-brad:hover:before {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border-color: #B22222;
+  transition: width 310ms ease-in-out;
+  width: 70%;
+  text-decoration: none;
+}
+
+.navbar-brad:after,
+.navbar-brad:before {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border: 1px solid  #B22222;
+  bottom: 0px;
+  left: 0px;
+  content: " ";
+  display: block;
+  margin: 0 auto;
+  position: relative;
+  transition: all 210ms ease-in-out;
+  width: 0;
+}
+/*Меню======================================*/
+*{
+  box-sizing: inherit;
+  transition-property: all;
+  transition-duration: .3s;
+  transition-timing-function: ease;
+}
+.nav-link
+{
+  cursor: pointer;
+  display: block;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 45px;
+  margin: 10px;
+  max-width: 150px;
+  width: 100%;
+  height: 45px;
+  text-align: center;
+  position: relative;
+  text-transform: uppercase;
+}
+.nav-link.active {
+  content: ' ';
+  display: block;
+  width: 0;
+  height: 2px;
+  background: #B22222;
+  transition: width 310ms ease-in-out;
+}
+.nav-link:after {
+  content: ' ';
+  display: block;
+  width: 0;
+  height: 2px;
+  background: #B22222;
+  transition: width 310ms ease-in-out;
+}
+
+.nav-link:hover:after {
+  width:100%;
+}
+/*Карточки*/
+div.catCard {
+  border: solid 1px #bababa;
+  border-radius: 10px;
+  background: #FFFFFF;
+  height: 400px;
+  display: block;
+  position: relative;
+  overflow: hidden;
+  padding: 10px;
+}
+div.lowerCatCard {
+  position: absolute;
+  background: #FFFFFF;
+  height: 200px;
+  padding: 20px;
+  -webkit-transition: all 0.6s ease;
+  -moz-transition:    all 0.6s ease;
+  -o-transition:      all 0.6s ease;
+  transition:         all 0.6s ease;
+}
+div.lowerCatCard:hover {
+  opacity: 0.95;
+  bottom: 0;
+  height: 390px;
+}
+div.catCard  div.lowerCatCard {
+  left: 0;
+  bottom: -3%;
+}
+div.catCard:hover div.lowerCatCard {
+  bottom: 0;
+}
+li.catCardList {
+  display: inline-block;
+  margin-right: 19px;
+  margin-top: 25px;
+}
+li.catCardList-last {
+  margin-right: 0;
+  width:225px;
+  display: inline-block;
+}
+ul.catCardList {
+  margin: 0;
+}
+#catCardButton {
+  position: absolute;
+  width: 190px;
+  bottom: 5px;
+  -webkit-transition: all 0.6s ease;
+  -moz-transition:    all 0.6s ease;
+  -o-transition:      all 0.6s ease;
+}
+div.lowerCatCard:hover #catCardButton {
+  bottom: 5px;
+}
+.startingPrice span {
+  font-size: 16px;
+  color: #c90c12;
+  font-weight: 300;
+}
+div.startingPrice {
+  margin-bottom: 5px;
+  color: #000;
+  font-weight: 300;
+}
+.catCard img {
+  border: 1px solid #dddddd;
+  width: 219px;
+  height: 198px;
+}
+.catCard img:hover {
+  border: 1px solid #bababa;
+}
+
+/* Button
+.......................................................................*/
+.button {
+  cursor: pointer;
+  font-size: 14px !important;
+  color: #000;
+  padding: 7px 10px !important;
+  text-decoration: none !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0 !important;
+  background: #FFFFFF;
+  border: none;
+  border-bottom: solid 1px #B22222;
+  border-radius: 10px;
+  text-align: center;
+  margin-top: 10px;
+}
+.button:hover {
+  background-color: #B22222;
+  border: none;
+  border-bottom: solid 1px #B22222;
+  transform: scale(1.04);
+  -webkit-transform: scale(1.04);
+  -moz-transform: scale(1.04);
+  -o-transform: scale(1.04);
+  -ms-transform: scale(1.04);
+}
+.button:active {
+  background: #000;
+}
+.button a {
+  color: #000;
+  padding: 7px 30px !important;
+  text-decoration: none;
+}
+.button a:hover {
+  color: #ааа;
+}
+.button:hover {
+  color: #fff;
+}
+/*Кнопка меню*/
+.menu {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  padding: 0;
+}
+.line {
+  fill: none;
+  stroke: black;
+  stroke-width: 6;
+  transition: stroke-dasharray 600ms cubic-bezier(0.4, 0, 0.2, 1),
+    stroke-dashoffset 600ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.line1 {
+  stroke-dasharray: 60 207;
+  stroke-width: 6;
+}
+.line2 {
+  stroke-dasharray: 60 60;
+  stroke-width: 6;
+}
+.line3 {
+  stroke-dasharray: 60 207;
+  stroke-width: 6;
+}
+.opened .line1 {
+  stroke-dasharray: 90 207;
+  stroke-dashoffset: -134;
+  stroke-width: 6;
+}
+.opened .line2 {
+  stroke-dasharray: 1 60;
+  stroke-dashoffset: -30;
+  stroke-width: 6;
+}
+.opened .line3 {
+  stroke-dasharray: 90 207;
+  stroke-dashoffset: -134;
+  stroke-width: 6;
+}
+
+

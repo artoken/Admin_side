@@ -1,0 +1,31 @@
+
+{% extends 'base.html' %}
+
+{% block color_create %}
+{{ style }}
+{% endblock %}
+
+
+{% block content %}
+{% load static %}
+
+<section style="font-family: 'Arsenal', sans-serif;" class="py-12" id="pages">
+			<div class="row justify-content-center">
+				<div class="col-6 col-md-9 mt-3 col-lg-6 col-xl-6 text-center">
+
+					<!-- Heading -->
+					<h2 class="mb-5">Начать аукцион</h2>
+					<!-- Subheading -->
+					<form action="" method="POST">
+					{% csrf_token %}
+
+					{{ auctionform }}
+
+					<input type="submit" name="send" value="Создать аукцион" class="mt-2 btn btn-primary">
+					</form>
+
+				</div>
+			</div>
+	</section>
+
+{% endblock%}
