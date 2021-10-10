@@ -10,20 +10,23 @@ import pathlib
 
 ganache_url = "http://127.0.0.1:8545"
 web3 = Web3(Web3.HTTPProvider(ganache_url))
+
+with open("config.json", "r") as read_file:
+    config = json.load(read_file)
+
 connect = web3.isConnected()
-with open('D:/NFT Case/Project/Client_auctions_and_deploy/client/src/contracts/ART_CONTRACT.json') as f:
+with open('../Client_auctions_and_deploy/client/src/contracts/ART_CONTRACT.json') as f:
     abi = json.loads(f.read())
 
-address_token = '0xe78A0F7E598Cc8b0Bb87894B0F60dD2a88d6a8Ab'
-art_token = web3.eth.contract(address=address_token, abi=abi["abi"])
+art_token = web3.eth.contract(address=config["address_token"], abi=abi["abi"])
 
-with open('D:/NFT Case/Project/Client_auctions_and_deploy/client/src/contracts/AuctionBox.json') as f:
+with open('../Client_auctions_and_deploy/client/src/contracts/AuctionBox.json') as f:
     abi = json.loads(f.read())
 
-address_box = '0x5b1869D9A4C187F2EAa108f3062412ecf0526b24'
-auction_box = web3.eth.contract(address=address_box, abi=abi["abi"])
 
-account_owner = "0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1"
+auction_box = web3.eth.contract(config["address_box"], abi=abi["abi"])
+
+account_owner = config["owner"]
 
 
 def get_time(timestamp):
@@ -96,7 +99,7 @@ def token(request):
         params = (
             ('pin', 'false'),
         )
-        files = {'media': open('D:/NFT Case/Project/Admin_side/static/img'+uploaded_file_url, 'rb')}
+        files = {'media': open(str(pathlib.Path('./static/img').resolve())+uploaded_file_url, 'rb')}
         response = requests.post('https://ipfs.infura.io:5001/api/v0/add', params=params, files=files)
         resp = json.loads(response.text)
         image_link = resp['Hash']
@@ -117,7 +120,7 @@ def auction(request):
     closeform = CloseAuction()
     auctions_in_system = auction_box.functions.returnAllAuctions().call()
     style = 'color:#fff; background-color:#B22222'
-    with open('D:/NFT Case/Project/Client_auctions_and_deploy/client/src/contracts/EnglishAuction.json') as f:
+    with open('../Client_auctions_and_deploy/client/src/contracts/EnglishAuction.json') as f:
         abi = json.loads(f.read())
     
     info_to_render = []
