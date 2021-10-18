@@ -182,7 +182,7 @@ def start_auction(request):
         startprice = int(request.POST.get("startprice").rstrip())
         step_min = int(request.POST.get("stepmin").rstrip())
         step_max = int(request.POST.get("stepmax").rstrip())
-        tx = auction_box.functions.createAuction(address_token, f'{benificiary}',auctiontime, startprice, id_external, id_internal, step_min, step_max).buildTransaction({'nonce': web3.eth.getTransactionCount(account_owner), 'from': account_owner})
+        tx = auction_box.functions.createAuction(config["address_token"], f'{benificiary}',auctiontime, startprice, id_external, id_internal, step_min, step_max).buildTransaction({'nonce': web3.eth.getTransactionCount(account_owner), 'from': account_owner})
         signed_tx = web3.eth.account.signTransaction(tx, private_key=password)
         web3.eth.sendRawTransaction(signed_tx.rawTransaction)
 
