@@ -25,7 +25,7 @@ SECRET_KEY = ')ki-2$jjdf%q$n%5a*rdjn$svg%x1+j7l^+cjpjr!wd!_d0p&d'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['artoken.ru', 'www.artoken.ru', '127.0.0.1']
+ALLOWED_HOSTS = ['artoken.ru', 'www.artoken.ru', '127.0.0.1', "*"]
 
 
 # Application definition

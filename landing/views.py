@@ -8,19 +8,19 @@ from django.core.files.storage import FileSystemStorage
 from django.conf import settings
 import pathlib
 
-ganache_url = "http://127.0.0.1:8545"
+ganache_url = "http://ganache_artoken:8545"
 web3 = Web3(Web3.HTTPProvider(ganache_url))
 
 with open("config.json", "r") as read_file:
     config = json.load(read_file)
 
 connect = web3.isConnected()
-with open('../Client_auctions_and_deploy/client/src/contracts/ART_CONTRACT.json') as f:
+with open('./contracts/ART_CONTRACT.json') as f:
     abi = json.loads(f.read())
 
 art_token = web3.eth.contract(address=config["address_token"], abi=abi["abi"])
 
-with open('../Client_auctions_and_deploy/client/src/contracts/AuctionBox.json') as f:
+with open('./contracts/AuctionBox.json') as f:
     abi = json.loads(f.read())
 
 
@@ -120,7 +120,7 @@ def auction(request):
     closeform = CloseAuction()
     auctions_in_system = auction_box.functions.returnAllAuctions().call()
     style = 'color:#fff; background-color:#B22222'
-    with open('../Client_auctions_and_deploy/client/src/contracts/EnglishAuction.json') as f:
+    with open('./contracts/EnglishAuction.json') as f:
         abi = json.loads(f.read())
     
     info_to_render = []
