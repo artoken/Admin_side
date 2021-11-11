@@ -5,14 +5,8 @@ from django.forms import CharField, Form, PasswordInput
 
 class CreateToken(forms.Form):
     password = CharField(widget=PasswordInput())
-    idform_ext = forms.CharField(label='',
-    widget=forms.NumberInput(attrs={'placeholder': 'Внешний ID',
-                                    'class': "mt-4 form-control"}))
     idform = forms.CharField(label='',
-    widget=forms.NumberInput(attrs={'placeholder': 'Внутренний ID',
-                                    'class': "mt-4 form-control"}))
-    share = forms.CharField(label='',
-    widget=forms.NumberInput(attrs={'placeholder': 'Доля в токене',
+    widget=forms.NumberInput(attrs={'placeholder': 'ID токена',
                                     'class': "mt-4 form-control"}))
     owner = forms.CharField(label='',
     widget=forms.TextInput(attrs={'placeholder': 'Владелец',
@@ -26,14 +20,8 @@ class CreateToken(forms.Form):
     author = forms.CharField(label='',
     widget=forms.TextInput(attrs={'placeholder': 'Автор',
                                     'class': "mt-4 form-control"}))
-    license_field = forms.CharField(label='',
-    widget=forms.TextInput(attrs={'placeholder': 'Лицензия',
-                                    'class': "mt-4 form-control"}))
     year = forms.CharField(label='',
     widget=forms.NumberInput(attrs={'placeholder': 'Год создания',
-                                    'class': "mt-4 form-control"}))
-    genuineness = forms.CharField(label='',
-    widget=forms.TextInput(attrs={'placeholder': 'Аутентичность',
                                     'class': "mt-4 form-control"}))
     extra_data = forms.CharField(label='',
     widget=forms.TextInput(attrs={'placeholder': 'Дополнительная информация',
@@ -47,11 +35,7 @@ class CreateAuction(forms.Form):
     password = CharField(widget=PasswordInput())
 
     id_internal = forms.CharField(label='',
-    widget=forms.NumberInput(attrs={'placeholder': 'Внутренний ID токена',
-                                    'class': "mt-4 form-control"}))
-
-    id_external = forms.CharField(label='',
-    widget=forms.NumberInput(attrs={'placeholder': 'Внешний ID токена',
+    widget=forms.NumberInput(attrs={'placeholder': 'ID токена',
                                     'class': "mt-4 form-control"}))
 
     benificiary = forms.CharField(label='',
@@ -61,7 +45,7 @@ class CreateAuction(forms.Form):
     widget=forms.NumberInput(attrs={'placeholder': 'Время аукциона',
                                     'class': "mt-4 form-control"}))
     startprice = forms.CharField(label='',
-    widget=forms.NumberInput(attrs={'placeholder': 'Начальная цена (bnb)',
+    widget=forms.NumberInput(attrs={'placeholder': 'Начальная цена (в токенах))',
                                     'class': "mt-4 form-control"}))
     stepmin = forms.CharField(label='',
     widget=forms.NumberInput(attrs={'placeholder': 'Минимальный шаг (%)',
