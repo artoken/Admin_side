@@ -8,7 +8,7 @@ from django.core.files.storage import FileSystemStorage
 from django.conf import settings
 import pathlib
 
-ganache_url = "http://127.0.0.1:8545"
+ganache_url = "http://ganache_artoken:8545"
 web3 = Web3(Web3.HTTPProvider(ganache_url))
 
 with open("config.json", "r") as read_file:
