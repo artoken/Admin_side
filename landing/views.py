@@ -148,16 +148,6 @@ def auction(request):
         signed_tx = web3.eth.account.signTransaction(tx, private_key=password)
         web3.eth.sendRawTransaction(signed_tx.rawTransaction)
 
-        highestBidder = auction_contract.functions.highestBidder().call()
-
-        share_id = int(auction_contract.functions.share_id().call())
-        
-        owner_of_token = art_token.functions.ownerOf(share_id).call()
-
-        tx = art_token.functions.safeTransferFrom(f'{owner_of_token}', f'{highestBidder}', share_id).buildTransaction({'nonce': web3.eth.getTransactionCount(account_owner), 'from': account_owner})
-        signed_tx = web3.eth.account.signTransaction(tx, private_key=password)
-        web3.eth.sendRawTransaction(signed_tx.rawTransaction)
-
     return render(request, 'artproject_owner/auction.html', locals())
 
 
