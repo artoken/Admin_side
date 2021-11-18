@@ -138,7 +138,7 @@ def auction(request):
             info = [id_internal, beneficiary, auctionEndTime_convert, highestBidder, highestBid, startPrice, auction_address, stepmin, stepmax, link, stateString]
             info_to_render.append(dict(zip(code_names, info)))
 
-    if request.method == "POST":
+    if "send" in request.POST:
         password = request.POST.get("password").rstrip()
         password = '0x'+password
         address_auction = request.POST.get("auction_address").rstrip()
@@ -147,6 +147,18 @@ def auction(request):
         tx = auction_contract.functions.auctionEnd().buildTransaction({'nonce': web3.eth.getTransactionCount(account_owner), 'from': account_owner})
         signed_tx = web3.eth.account.signTransaction(tx, private_key=password)
         web3.eth.sendRawTransaction(signed_tx.rawTransaction)
+
+    if "sendChange" in request.POST:
+        password = request.POST.get("password").rstrip()
+        password = '0x'+password
+        address_auction = request.POST.get("auction_address").rstrip()
+        auction_contract = web3.eth.contract(address=address_auction, abi=abi["abi"])
+
+        currentState = auction_contract.functions.auctionState().call()
+        if currentState <= 1:
+            tx = auction_contract.functions.changeAuctionState(currentState+1).buildTransaction({'nonce': web3.eth.getTransactionCount(account_owner), 'from': account_owner})
+            signed_tx = web3.eth.account.signTransaction(tx, private_key=password)
+            web3.eth.sendRawTransaction(signed_tx.rawTransaction)
 
     return render(request, 'artproject_owner/auction.html', locals())
 
