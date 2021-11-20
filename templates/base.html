@@ -345,7 +345,13 @@
 									<a href="{% url 'auction' %}" class="nav-link" style='{% block color_auction %}{% endblock %}'>Аукционы</a>
 								</li>
 								<li class="nav-item active">
+									<a href="{% url 'closed_auctions' %}" class="nav-link" style='{% block color_close_auction %}{% endblock %}'>Закрытые аукционы</a>
+								</li>
+								<li class="nav-item active">
 									<a href="{% url 'new_auction' %}" class="nav-link" style='{% block color_create %}{% endblock %}'>Начать аукцион</a>
+								</li>
+								<li class="nav-item active">
+									<a href="{% url 'new_closed_auction' %}" class="nav-link" style='{% block color_create_close %}{% endblock %}'>Начать закрытый аукцион</a>
 								</li>
 							</ul>
 						</div>

@@ -1,0 +1,94 @@
+
+{% extends 'base.html' %}
+
+{% block color_auction %}
+{{ style }}
+{% endblock %}
+
+{% block content %}
+{% load static %}
+
+
+	<section class="py-12" id="pages">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-12 col-md-12 mt-3 col-lg-12 col-xl-12 text-center">
+						<div class="row justify-content-center" >
+							<div class="col-sm-11 col-md-12" style="hyphens: auto">
+							<h1 style="margin-top: 0px; font-family: 'Arsenal', sans-serif; hyphens: auto;">Активные <wbr> аукционы</h1>
+				</div>
+				</div>
+			</div>
+			<!--
+			<div class="row justify-content-center">
+						<div class="col-sm-12 col-md-12" style="text-align: center; margin: 15px" >
+							<form class="seeker" style="box-sizing: border-box">
+								<input type="text" placeholder="Поиск" id="myFilter" onkeyup="myFunction()"/>
+								<button class="search-button" type="submit"><i style="color: #fff;" class="fa fa-search" aria-hidden="true"></i></button>
+				  			</form>
+						</div>
+			</div>
+			-->
+			<div class="row justify-content-center" id="myAuctions" style="text-align: center; box-sizing: border-box">	
+				{% for auction in info_to_render %}
+				<div className="col-sm-12 col-md-12" style=" text-align: left">
+
+					<div class="card" style="padding: 15px; margin: 15px">
+						
+						  <div class="row" style="padding: 10px">
+							<div class="col-sm-4 col-md-4" >
+							<img style="width: 75%" class="scale" src="{{auction.LINK}}" alt="Тут Токен должен жить"/>
+							</div>
+						  
+						    <div class="col-sm-8 col-md-8" style="text-align: left">
+							  <div class="Bnfcry" style="font-size: 16px" onmouseover="this.style.color='#B22222'" onmouseout="this.style.color='#000'"><strong>Бенифициар </strong><span>{{auction.BNFCRY}}</span></div>
+							  <div class="starting" style="font-size: 16px" onmouseover="this.style.color='#B22222'" onmouseout="this.style.color='#000'"><strong>Начальная цена </strong><span style="color: #B22222">{{auction.STARTPRICE}} bnb</span></div>
+							  <div class="Adress" style="font-size: 16px" onmouseover="this.style.color='#B22222'" onmouseout="this.style.color='#000'"><strong>Aдрес </strong><span>{{auction.AUCTADDR}}</span></div>
+							  <div class="endTime" style="font-size: 16px" onmouseover="this.style.color='#B22222'" onmouseout="this.style.color='#000'"><strong>Окончание </strong><span>{{auction.ENDTIME}}</span></div>
+							  <div class="highBidder" style="font-size: 16px" onmouseover="this.style.color='#B22222'" onmouseout="this.style.color='#000'"><strong>Highest bidder </strong><span>{{auction.HIGHBIDDER}}</span></div>
+							  <div class="highBidd" style="font-size: 16px" onmouseover="this.style.color='#B22222'" onmouseout="this.style.color='#000'"><strong>Highest bid </strong><span>{{auction.HIGHBID}}</span></div>
+							  <div class="highBidd" style="font-size: 16px" onmouseover="this.style.color='#B22222'" onmouseout="this.style.color='#000'"><strong>Auction state </strong><span>{{auction.STATE}}</span></div>
+							  <form action="" method="POST">
+								{% csrf_token %}
+
+								{{ closeform }}
+
+								<input type="submit" name="send" value="Закрыть аукцион" class="mt-2 btn btn-primary">
+								<input type="submit" name="sendChange" value="Сменить этап аукциона" class="mt-2 btn btn-primary">
+								</form>
+
+					
+							</div>
+						</div>
+					</div>
+			    </div>
+				{% endfor %}
+						
+
+				
+			</div>  
+		</div>
+	</div>
+</section>  
+
+{% endblock%}
+	<!--Код==================================================
+	<script>
+		//Поиск
+		function myFunction() {
+			var input, filter, cards, cardContainer, title, i;
+			input = document.getElementById("myFilter");
+			filter = input.value.toUpperCase();
+			cardContainer = document.getElementById("myAuctions");
+			cards = cardContainer.getElementsByClassName("card");
+			for (i = 0; i < cards.length; i++) {
+				title = cards[i].querySelector(".card-title");
+				if (title.innerText.toUpperCase().indexOf(filter) > -1) {
+					cards[i].style.display = "";
+				} else {
+					cards[i].style.display = "none";
+				}
+			}
+		}
+	</script>
+-->

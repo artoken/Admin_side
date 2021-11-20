@@ -24,5 +24,7 @@ urlpatterns = [
     path('', views.landing, name = 'landing'),
     path('/create_token', views.token, name = 'tkn'),
     path('/auctions', views.auction, name = 'auction'),
+    path('/closed_auctions', views.closed_auction, name = 'closed_auctions'),
     path('/new_auction', views.start_auction, name = 'new_auction'),
+    path('/new_closed_auction', views.start_closed_auction, name = 'new_closed_auction'),
 ] + static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS)

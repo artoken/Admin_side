@@ -27,9 +27,6 @@ class CreateToken(forms.Form):
     widget=forms.TextInput(attrs={'placeholder': 'Дополнительная информация',
                                     'class': "mt-4 form-control"}))
 
-    
-
-
 
 class CreateAuction(forms.Form):
     password = CharField(widget=PasswordInput())
@@ -54,6 +51,25 @@ class CreateAuction(forms.Form):
     widget=forms.NumberInput(attrs={'placeholder': 'Максимальный шаг (%)',
                                     'class': "mt-4 form-control"}))
 
+class CreateClosedAuction(forms.Form):
+    password = CharField(widget=PasswordInput())
+
+    id_internal = forms.CharField(label='',
+    widget=forms.NumberInput(attrs={'placeholder': 'ID токена',
+                                    'class': "mt-4 form-control"}))
+
+    benificiary = forms.CharField(label='',
+    widget=forms.TextInput(attrs={'placeholder': 'Адрес бенифициара',
+                                    'class': "mt-4 form-control"}))
+    auctiontime = forms.CharField(label='',
+    widget=forms.NumberInput(attrs={'placeholder': 'Время аукциона',
+                                    'class': "mt-4 form-control"}))
+    startprice = forms.CharField(label='',
+    widget=forms.NumberInput(attrs={'placeholder': 'Минимальная ставка (в токенах)',
+                                    'class': "mt-4 form-control"}))
+    maxBidCount = forms.CharField(label='',
+    widget=forms.NumberInput(attrs={'placeholder': 'Максимальное число ставок',
+                                    'class': "mt-4 form-control"}))
 
 class CloseAuction(forms.Form):
     password = CharField(widget=PasswordInput())
