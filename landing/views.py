@@ -3,7 +3,7 @@ import requests
 from web3 import Web3
 import json
 from .forms import *
-import datetime 
+import datetime
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
 import pathlib
@@ -26,6 +26,9 @@ with open('./contracts/AuctionBox.json') as f:
 with open('./contracts/ClosedAuctionBox.json') as f:
     abiClosedBox = json.loads(f.read())
 
+with open('./contracts/HashedClosedAuction.json') as f:
+    abiClosedAuction = json.loads(f.read())
+
 auction_box = web3.eth.contract(config["address_box"], abi=abi["abi"])
 closed_auction_box = web3.eth.contract(config["address_closed_box"], abi=abiClosedBox["abi"])
 erc20 = config["erc_20"]
@@ -40,9 +43,9 @@ def get_time(timestamp):
 
 # Вывод всей информации о токенах на главной странице
 def landing(request):
-    
+
     tokens_in_system = art_token.functions.totalSupply().call()
-    
+
     tokenIds = art_token.functions.getTokenIds().call()
     tokensInSystem = len(tokenIds)
 
@@ -80,7 +83,7 @@ def token(request):
         author = request.POST.get("author").rstrip()
         year = int(request.POST.get("year").rstrip())
         extra_data = request.POST.get("extra_data").rstrip()
-        
+
         myfile = request.FILES['myfile']
         fs = FileSystemStorage('static/img')
         filename = fs.save(myfile.name, myfile)
@@ -101,8 +104,8 @@ def token(request):
         tx = art_token.functions.setTokenURI(tokenId, f'{image_link}').buildTransaction({'nonce': web3.eth.getTransactionCount(account_owner), 'from': account_owner})
         signed_tx = web3.eth.account.signTransaction(tx, private_key=password)
         web3.eth.sendRawTransaction(signed_tx.rawTransaction)
-        
-        text_for_user = "Токен успешно создан"    
+
+        text_for_user = "Токен успешно создан"
     return render(request, 'artproject_owner/tokenization.html', locals())
 
 # Вывод всех открытых аукционов
@@ -112,12 +115,12 @@ def auction(request):
     style = 'color:#fff; background-color:#B22222'
     with open('./contracts/EnglishAuction.json') as f:
         abi = json.loads(f.read())
-    
+
     info_to_render = []
     code_names = ['IDINTERN','BNFCRY', 'ENDTIME', 'HIGHBIDDER', 'HIGHBID','STARTPRICE', 'AUCTADDR', 'STEPMIN', 'STEPMAX', 'LINK', 'STATE']
     for auction_address in auctions_in_system:
         auction_contract = web3.eth.contract(address=auction_address, abi=abi["abi"])
-        
+
         closed = auction_contract.functions.is_ended().call()
         if not closed:
             id_internal = auction_contract.functions.token_id().call()
@@ -129,21 +132,21 @@ def auction(request):
                 stateString = "Аукцион на стадии принятия ставок"
             else:
                 stateString = "Аукцион на стадии раскрытия победителя"
-                
+
             beneficiary = auction_contract.functions.beneficiary().call()
             auctionEndTime = auction_contract.functions.auctionEndTime().call()
             auctionEndTime_convert = get_time(int(auctionEndTime))
 
             link = 'https://ipfs.io/ipfs/'+art_token.functions.tokenURI(id_internal).call()
-            
+
             highestBidder = auction_contract.functions.highestBidder().call()
             highestBid = auction_contract.functions.highestBid().call()/10**18
             startPrice = auction_contract.functions.startPrice().call()/10**18
             stepmin = auction_contract.functions.step_min().call()/10**18
-            stepmax = auction_contract.functions.step_max().call()/10**18 
+            stepmax = auction_contract.functions.step_max().call()/10**18
             info = [id_internal, beneficiary, auctionEndTime_convert, highestBidder, highestBid, startPrice, auction_address, stepmin, stepmax, link, stateString]
             info_to_render.append(dict(zip(code_names, info)))
-    
+
     # закрываем открытый аукцион
     if "send" in request.POST:
         password = request.POST.get("password").rstrip()
@@ -177,12 +180,12 @@ def closed_auction(request):
     style = 'color:#fff; background-color:#B22222'
     with open('./contracts/HashedClosedAuction.json') as f:
         abi = json.loads(f.read())
-    
+
     info_to_render = []
     code_names = ['IDINTERN','BNFCRY', 'ENDTIME', 'STARTPRICE', 'AUCTADDR', 'MAXBIDCOUNT','LINK', 'STATE']
     for auction_address in auctions_in_system:
         auction_contract = web3.eth.contract(address=auction_address, abi=abi["abi"])
-        
+
         closed = auction_contract.functions.is_ended().call()
         if not closed:
             id_internal = auction_contract.functions.token_id().call()
@@ -196,17 +199,17 @@ def closed_auction(request):
                 stateString = "Аукцион на стадии доказательства ставок"
             else:
                 stateString = "Аукцион на стадии раскрытия победителя"
-                
+
             beneficiary = auction_contract.functions.beneficiary().call()
             auctionEndTime = auction_contract.functions.auctionEndTime().call()
             auctionEndTime_convert = get_time(int(auctionEndTime))
 
             link = 'https://ipfs.io/ipfs/'+art_token.functions.tokenURI(id_internal).call()
-            
 
-            minBid = auction_contract.functions.startPrice().call()/10**18
+
+            minBid = auction_contract.functions.auctionMinimalBidPrice().call()
             maxBidCount = auction_contract.functions.auctionMaximumBidOverwriteCount().call()
-            
+
             info = [id_internal, beneficiary, auctionEndTime_convert, minBid, auction_address, maxBidCount, link, stateString]
             info_to_render.append(dict(zip(code_names, info)))
 
@@ -215,7 +218,7 @@ def closed_auction(request):
         password = request.POST.get("password").rstrip()
         password = '0x'+password
         address_auction = request.POST.get("auction_address").rstrip()
-        auction_contract = web3.eth.contract(address=address_auction, abi=abi["abi"])
+        auction_contract = web3.eth.contract(address=address_auction, abi=abiClosedAuction["abi"])
 
         tx = auction_contract.functions.revealWinner().buildTransaction({'nonce': web3.eth.getTransactionCount(account_owner), 'from': account_owner})
         signed_tx = web3.eth.account.signTransaction(tx, private_key=password)
@@ -256,7 +259,7 @@ def start_auction(request):
 
         return  render(request, 'artproject_owner/start_auction.html', locals())
 
-    
+
     return render(request, 'artproject_owner/start_auction.html', locals())
 
 # Старт закрытого аукциона
@@ -269,7 +272,7 @@ def start_closed_auction(request):
         token_id = int(request.POST.get("id_internal").rstrip())
         benificiary = request.POST.get("benificiary").rstrip()
         auctiontime = int(request.POST.get("auctiontime").rstrip())
-        startprice = int(int(request.POST.get("startprice").rstrip())*(10**18))
+        startprice = int(request.POST.get("startprice").rstrip())
         tokenAddress = config["address_token"]
         maxBid = int(request.POST.get("maxBidCount").rstrip())
         tx = closed_auction_box.functions.createAuction(erc20, tokenAddress, auctiontime, f'{benificiary}', startprice, token_id, maxBid).buildTransaction({'nonce': web3.eth.getTransactionCount(account_owner), 'from': account_owner})
@@ -278,5 +281,5 @@ def start_closed_auction(request):
 
         return  render(request, 'artproject_owner/start_auction.html', locals())
 
-    
+
     return render(request, 'artproject_owner/start_auction.html', locals())
