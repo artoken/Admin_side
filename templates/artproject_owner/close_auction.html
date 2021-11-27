@@ -1,7 +1,7 @@
 
 {% extends 'base.html' %}
 
-{% block color_auction %}
+{% block color_close_auction %}
 {{ style }}
 {% endblock %}
 
@@ -29,17 +29,17 @@
 						</div>
 			</div>
 			-->
-			<div class="row justify-content-center" id="myAuctions" style="text-align: center; box-sizing: border-box">	
+			<div class="row justify-content-center" id="myAuctions" style="text-align: center; box-sizing: border-box">
 				{% for auction in info_to_render %}
 				<div className="col-sm-12 col-md-12" style=" text-align: left">
 
 					<div class="card" style="padding: 15px; margin: 15px">
-						
+
 						  <div class="row" style="padding: 10px">
 							<div class="col-sm-4 col-md-4" >
 							<img style="width: 75%" class="scale" src="{{auction.LINK}}" alt="Тут Токен должен жить"/>
 							</div>
-						  
+
 						    <div class="col-sm-8 col-md-8" style="text-align: left">
 							  <div class="Bnfcry" style="font-size: 16px" onmouseover="this.style.color='#B22222'" onmouseout="this.style.color='#000'"><strong>Бенифициар </strong><span>{{auction.BNFCRY}}</span></div>
 							  <div class="starting" style="font-size: 16px" onmouseover="this.style.color='#B22222'" onmouseout="this.style.color='#000'"><strong>Начальная цена </strong><span style="color: #B22222">{{auction.STARTPRICE}} bnb</span></div>
@@ -57,19 +57,19 @@
 								<input type="submit" name="sendChange" value="Сменить этап аукциона" class="mt-2 btn btn-primary">
 								</form>
 
-					
+
 							</div>
 						</div>
 					</div>
 			    </div>
 				{% endfor %}
-						
 
-				
-			</div>  
+
+
+			</div>
 		</div>
 	</div>
-</section>  
+</section>
 
 {% endblock%}
 	<!--Код==================================================

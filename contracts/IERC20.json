@@ -203,7 +203,7 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "pragma solidity 0.5.16;\n\n/**\n * @title ERC20 interface\n * @dev see https://github.com/ethereum/EIPs/issues/20\n */\ninterface IERC20 {\n  function totalSupply() external view returns (uint256);\n\n  function balanceOf(address who) external view returns (uint256);\n\n  function allowance(address owner, address spender)\n    external view returns (uint256);\n\n  function transfer(address to, uint256 value) external returns (bool);\n\n  function approve(address spender, uint256 value)\n    external returns (bool);\n\n  function transferFrom(address from, address to, uint256 value)\n    external returns (bool);\n\n  event Transfer(\n    address indexed from,\n    address indexed to,\n    uint256 value\n  );\n\n  event Approval(\n    address indexed owner,\n    address indexed spender,\n    uint256 value\n  );\n}",
-  "sourcePath": "/home/mrfox131/WORK/dockerized/ganache/contracts_src/IERC20.sol",
+  "sourcePath": "/home/mrfox131/WORK/blockchain_auctions/ganache/contracts_src/IERC20.sol",
   "ast": {
     "absolutePath": "project:/contracts_src/IERC20.sol",
     "exportedSymbols": {
@@ -1939,7 +1939,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.3",
-  "updatedAt": "2021-11-20T04:28:46.244Z",
+  "updatedAt": "2021-11-26T23:50:56.798Z",
   "devdoc": {
     "details": "see https://github.com/ethereum/EIPs/issues/20",
     "methods": {},

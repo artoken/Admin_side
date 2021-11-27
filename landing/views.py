@@ -241,6 +241,7 @@ def closed_auction(request):
 
 # Старт открытого аукциона
 def start_auction(request):
+    opened_auction = True
     auctionform = CreateAuction()
     text_for_user = ""
     style = 'color:#fff; background-color:#B22222'
@@ -279,7 +280,7 @@ def start_closed_auction(request):
         signed_tx = web3.eth.account.signTransaction(tx, private_key=password)
         web3.eth.sendRawTransaction(signed_tx.rawTransaction)
 
-        return  render(request, 'artproject_owner/start_auction.html', locals())
+        return  render(request, 'artproject_owner/start_closed_auction.html', locals())
 
 
-    return render(request, 'artproject_owner/start_auction.html', locals())
+    return render(request, 'artproject_owner/start_closed_auction.html', locals())

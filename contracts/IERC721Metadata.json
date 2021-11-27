@@ -364,7 +364,7 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "pragma solidity 0.5.16;\nimport './IERC721.sol';\n\n/**\n * @title ERC-721 Non-Fungible Token Standard, optional metadata extension\n * @dev See https://eips.ethereum.org/EIPS/eip-721\n */\ncontract IERC721Metadata is IERC721 {\n    function name() external view returns (string memory);\n    function symbol() external view returns (string memory);\n    function tokenURI(uint256 tokenId) external view returns (string memory);\n}",
-  "sourcePath": "/home/mrfox131/WORK/dockerized/ganache/contracts_src/IERC721Metadata.sol",
+  "sourcePath": "/home/mrfox131/WORK/blockchain_auctions/ganache/contracts_src/IERC721Metadata.sol",
   "ast": {
     "absolutePath": "project:/contracts_src/IERC721Metadata.sol",
     "exportedSymbols": {
@@ -941,7 +941,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.3",
-  "updatedAt": "2021-11-20T04:28:46.248Z",
+  "updatedAt": "2021-11-26T23:50:56.801Z",
   "devdoc": {
     "details": "See https://eips.ethereum.org/EIPS/eip-721",
     "methods": {
