@@ -93,9 +93,9 @@ def token(request):
             ('pin', 'false'),
         )
         files = {'media': open(str(pathlib.Path('./static/img').resolve())+uploaded_file_url, 'rb')}
-        response = requests.post('https://ipfs.infura.io:5001/api/v0/add', params=params, files=files)
+        response = requests.post('https://api.web3.storage/upload', headers={"Authorication":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDg0NUYwOTZiODEzOTYyNTM0ZTg3MzM0ZjcyZDZiNmU2RUQwNmQ1MmEiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2NjA0NjE3MTYxNjgsIm5hbWUiOiJBdWN0aW9uIn0.dwA1WVHjehwkMmSOTA4C0wEjph2HW_azPb_EDJzXT9w" }, params=params, files=files)
         resp = json.loads(response.text)
-        image_link = resp['Hash']
+        image_link = resp['cid']
 
         tx = art_token.functions.mint(f'{owner}', tokenId, f'{entity}', f'{name}', f'{author}', year, f'{extra_data}').buildTransaction({'nonce': web3.eth.getTransactionCount(account_owner), 'from': account_owner})
         signed_tx = web3.eth.account.signTransaction(tx, private_key=password)
